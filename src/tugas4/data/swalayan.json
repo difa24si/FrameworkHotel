@@ -1,0 +1,404 @@
+{
+  "swalayan": [
+    {
+      "id": 1,
+      "nama": "Supermarket Segar Jaya",
+      "kategori": "Supermarket",
+      "lokasi": {
+        "alamat": "Jl. Sudirman No. 123",
+        "kota": "Jakarta",
+        "provinsi": "DKI Jakarta"
+      },
+      "rating": 4.5,
+      "gambar": "https://i.pinimg.com/1200x/1f/3a/79/1f3a795cb8bb815732ed92ba4b53ae94.jpg",
+      "jamOperasional": {
+        "buka": "08:00",
+        "tutup": "22:00",
+        "bukaSetiapHari": true
+      },
+      "fasilitas": ["Parkir Luas", "AC", "Musala", "Food Court"],
+      "jumlahKasir": 8,
+      "statusBuka": true
+    },
+    {
+      "id": 2,
+      "nama": "Indomaret Thamrin",
+      "kategori": "Minimarket",
+      "lokasi": {
+        "alamat": "Jl. M.H. Thamrin No. 45",
+        "kota": "Jakarta",
+        "provinsi": "DKI Jakarta"
+      },
+      "rating": 4.2,
+      "gambar": "",
+      "jamOperasional": {
+        "buka": "00:00",
+        "tutup": "23:59",
+        "bukaSetiapHari": true
+      },
+      "fasilitas": ["ATM", "WiFi", "Toilet"],
+      "jumlahKasir": 3,
+      "statusBuka": true
+    },
+    {
+      "id": 3,
+      "nama": "Alfamart Gatot Subroto",
+      "kategori": "Minimarket",
+      "lokasi": {
+        "alamat": "Jl. Gatot Subroto No. 78",
+        "kota": "Bandung",
+        "provinsi": "Jawa Barat"
+      },
+      "rating": 4.0,
+      "gambar": "",
+      "jamOperasional": {
+        "buka": "06:00",
+        "tutup": "23:00",
+        "bukaSetiapHari": true
+      },
+      "fasilitas": ["ATM", "Parkir Motor"],
+      "jumlahKasir": 2,
+      "statusBuka": true
+    },
+    {
+      "id": 4,
+      "nama": "Hypermarket Pondok Indah",
+      "kategori": "Hypermarket",
+      "lokasi": {
+        "alamat": "Jl. Metro Pondok Indah",
+        "kota": "Jakarta Selatan",
+        "provinsi": "DKI Jakarta"
+      },
+      "rating": 4.6,
+      "gambar": "",
+      "jamOperasional": {
+        "buka": "09:00",
+        "tutup": "22:00",
+        "bukaSetiapHari": true
+      },
+      "fasilitas": ["Parkir Luas", "AC", "Food Court", "Kids Zone", "ATM"],
+      "jumlahKasir": 15,
+      "statusBuka": true
+    },
+    {
+      "id": 5,
+      "nama": "Ranch Market Kemang",
+      "kategori": "Supermarket",
+      "lokasi": {
+        "alamat": "Jl. Kemang Raya No. 12",
+        "kota": "Jakarta Selatan",
+        "provinsi": "DKI Jakarta"
+      },
+      "rating": 4.7,
+      "gambar": "",
+      "jamOperasional": {
+        "buka": "08:00",
+        "tutup": "21:00",
+        "bukaSetiapHari": true
+      },
+      "fasilitas": ["Imported Goods", "Deli", "Bakery", "Parking"],
+      "jumlahKasir": 6,
+      "statusBuka": false
+    },
+    {
+      "id": 6,
+      "nama": "Lotte Mart Kelapa Gading",
+      "kategori": "Hypermarket",
+      "lokasi": {
+        "alamat": "Jl. Boulevard Barat Kelapa Gading",
+        "kota": "Jakarta Utara",
+        "provinsi": "DKI Jakarta"
+      },
+      "rating": 4.4,
+      "gambar": "",
+      "jamOperasional": {
+        "buka": "09:00",
+        "tutup": "22:00",
+        "bukaSetiapHari": true
+      },
+      "fasilitas": ["Parkir", "AC", "Food Court", "Korean Section"],
+      "jumlahKasir": 12,
+      "statusBuka": true
+    },
+    {
+      "id": 7,
+      "nama": "Alfamidi Setiabudi",
+      "kategori": "Minimarket",
+      "lokasi": {
+        "alamat": "Jl. HR Rasuna Said Kav. 12",
+        "kota": "Jakarta",
+        "provinsi": "DKI Jakarta"
+      },
+      "rating": 4.1,
+      "gambar": "",
+      "jamOperasional": {
+        "buka": "07:00",
+        "tutup": "22:00",
+        "bukaSetiapHari": true
+      },
+      "fasilitas": ["ATM", "Toilet"],
+      "jumlahKasir": 2,
+      "statusBuka": true
+    },
+    {
+      "id": 8,
+      "nama": "Hero Supermarket Senayan",
+      "kategori": "Supermarket",
+      "lokasi": {
+        "alamat": "Plaza Senayan, Jl. Asia Afrika",
+        "kota": "Jakarta",
+        "provinsi": "DKI Jakarta"
+      },
+      "rating": 4.5,
+      "gambar": "",
+      "jamOperasional": {
+        "buka": "09:00",
+        "tutup": "21:00",
+        "bukaSetiapHari": true
+      },
+      "fasilitas": ["Imported Products", "Organic Section", "Parking"],
+      "jumlahKasir": 5,
+      "statusBuka": true
+    },
+    {
+      "id": 9,
+      "nama": "Grand Lucky Mall Taman Anggrek",
+      "kategori": "Supermarket",
+      "lokasi": {
+        "alamat": "Mall Taman Anggrek Lt. Ground",
+        "kota": "Jakarta Barat",
+        "provinsi": "DKI Jakarta"
+      },
+      "rating": 4.3,
+      "gambar": "",
+      "jamOperasional": {
+        "buka": "10:00",
+        "tutup": "22:00",
+        "bukaSetiapHari": true
+      },
+      "fasilitas": ["Japanese Section", "Fresh Food", "Parking"],
+      "jumlahKasir": 7,
+      "statusBuka": true
+    },
+    {
+      "id": 10,
+      "nama": "Circle K Sudirman",
+      "kategori": "Convenience Store",
+      "lokasi": {
+        "alamat": "Jl. Jend. Sudirman Kav. 52",
+        "kota": "Jakarta",
+        "provinsi": "DKI Jakarta"
+      },
+      "rating": 4.0,
+      "gambar": "",
+      "jamOperasional": {
+        "buka": "00:00",
+        "tutup": "23:59",
+        "bukaSetiapHari": true
+      },
+      "fasilitas": ["24 Hours", "ATM", "WiFi", "Dining Area"],
+      "jumlahKasir": 2,
+      "statusBuka": true
+    },
+    {
+      "id": 11,
+      "nama": "Superindo Kuningan",
+      "kategori": "Supermarket",
+      "lokasi": {
+        "alamat": "Jl. Kuningan Raya No. 88",
+        "kota": "Jakarta",
+        "provinsi": "DKI Jakarta"
+      },
+      "rating": 4.2,
+      "gambar": "",
+      "jamOperasional": {
+        "buka": "08:00",
+        "tutup": "22:00",
+        "bukaSetiapHari": true
+      },
+      "fasilitas": ["Fresh Market", "Butcher", "Parking"],
+      "jumlahKasir": 4,
+      "statusBuka": true
+    },
+    {
+      "id": 12,
+      "nama": "Lawson Thamrin",
+      "kategori": "Convenience Store",
+      "lokasi": {
+        "alamat": "Jl. M.H. Thamrin No. 1",
+        "kota": "Jakarta",
+        "provinsi": "DKI Jakarta"
+      },
+      "rating": 3.9,
+      "gambar": "",
+      "jamOperasional": {
+        "buka": "00:00",
+        "tutup": "23:59",
+        "bukaSetiapHari": true
+      },
+      "fasilitas": ["24 Hours", "Ready to Eat", "ATM"],
+      "jumlahKasir": 2,
+      "statusBuka": true
+    },
+    {
+      "id": 13,
+      "nama": "Farmers Market Pondok Indah",
+      "kategori": "Supermarket",
+      "lokasi": {
+        "alamat": "Pondok Indah Mall 2",
+        "kota": "Jakarta Selatan",
+        "provinsi": "DKI Jakarta"
+      },
+      "rating": 4.6,
+      "gambar": "",
+      "jamOperasional": {
+        "buka": "09:00",
+        "tutup": "21:00",
+        "bukaSetiapHari": true
+      },
+      "fasilitas": ["Premium Products", "Organic", "Wine Section"],
+      "jumlahKasir": 5,
+      "statusBuka": true
+    },
+    {
+      "id": 14,
+      "nama": "Indomaret Dago",
+      "kategori": "Minimarket",
+      "lokasi": {
+        "alamat": "Jl. Ir. H. Juanda (Dago) No. 56",
+        "kota": "Bandung",
+        "provinsi": "Jawa Barat"
+      },
+      "rating": 4.1,
+      "gambar": "",
+      "jamOperasional": {
+        "buka": "00:00",
+        "tutup": "23:59",
+        "bukaSetiapHari": true
+      },
+      "fasilitas": ["ATM", "WiFi", "Toilet"],
+      "jumlahKasir": 3,
+      "statusBuka": true
+    },
+    {
+      "id": 15,
+      "nama": "Alfamart Malioboro",
+      "kategori": "Minimarket",
+      "lokasi": {
+        "alamat": "Jl. Malioboro No. 123",
+        "kota": "Yogyakarta",
+        "provinsi": "DI Yogyakarta"
+      },
+      "rating": 4.0,
+      "gambar": "",
+      "jamOperasional": {
+        "buka": "06:00",
+        "tutup": "23:00",
+        "bukaSetiapHari": true
+      },
+      "fasilitas": ["ATM", "Parkir"],
+      "jumlahKasir": 2,
+      "statusBuka": true
+    },
+    {
+      "id": 16,
+      "nama": "Transmart Tebet",
+      "kategori": "Hypermarket",
+      "lokasi": {
+        "alamat": "Jl. Prof. Dr. Satrio",
+        "kota": "Jakarta Selatan",
+        "provinsi": "DKI Jakarta"
+      },
+      "rating": 4.3,
+      "gambar": "",
+      "jamOperasional": {
+        "buka": "09:00",
+        "tutup": "22:00",
+        "bukaSetiapHari": true
+      },
+      "fasilitas": ["Parkir Luas", "Food Court", "ATM Center", "Kids Play"],
+      "jumlahKasir": 10,
+      "statusBuka": true
+    },
+    {
+      "id": 17,
+      "nama": "Giant Express BSD",
+      "kategori": "Supermarket",
+      "lokasi": {
+        "alamat": "BSD City, Tangerang",
+        "kota": "Tangerang",
+        "provinsi": "Banten"
+      },
+      "rating": 4.1,
+      "gambar": "",
+      "jamOperasional": {
+        "buka": "08:00",
+        "tutup": "22:00",
+        "bukaSetiapHari": true
+      },
+      "fasilitas": ["Fresh Food", "Household", "Parking"],
+      "jumlahKasir": 6,
+      "statusBuka": false
+    },
+    {
+      "id": 18,
+      "nama": "Alfamidi Surabaya Center",
+      "kategori": "Minimarket",
+      "lokasi": {
+        "alamat": "Jl. Basuki Rahmat No. 45",
+        "kota": "Surabaya",
+        "provinsi": "Jawa Timur"
+      },
+      "rating": 4.2,
+      "gambar": "",
+      "jamOperasional": {
+        "buka": "07:00",
+        "tutup": "22:00",
+        "bukaSetiapHari": true
+      },
+      "fasilitas": ["ATM", "Toilet", "Parkir"],
+      "jumlahKasir": 3,
+      "statusBuka": true
+    },
+    {
+      "id": 19,
+      "nama": "Supermarket Bintang",
+      "kategori": "Supermarket",
+      "lokasi": {
+        "alamat": "Jl. Ahmad Yani No. 78",
+        "kota": "Semarang",
+        "provinsi": "Jawa Tengah"
+      },
+      "rating": 4.0,
+      "gambar": "",
+      "jamOperasional": {
+        "buka": "08:00",
+        "tutup": "21:00",
+        "bukaSetiapHari": true
+      },
+      "fasilitas": ["Grocery", "Fresh Market", "Parking"],
+      "jumlahKasir": 4,
+      "statusBuka": true
+    },
+    {
+      "id": 20,
+      "nama": "7-Eleven SCBD",
+      "kategori": "Convenience Store",
+      "lokasi": {
+        "alamat": "SCBD Lotte Shopping Avenue",
+        "kota": "Jakarta Selatan",
+        "provinsi": "DKI Jakarta"
+      },
+      "rating": 4.4,
+      "gambar": "",
+      "jamOperasional": {
+        "buka": "00:00",
+        "tutup": "23:59",
+        "bukaSetiapHari": true
+      },
+      "fasilitas": ["24 Hours", "Imported Snacks", "Ready Meals", "ATM"],
+      "jumlahKasir": 3,
+      "statusBuka": true
+    }
+  ]
+}
