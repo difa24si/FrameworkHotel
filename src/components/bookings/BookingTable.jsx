@@ -1,34 +1,53 @@
+// components/bookings/BookingTable.jsx
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { MoreHorizontal } from "lucide-react"
+
 import {
   paymentCfg,
   bookingCfg,
 } from './BookingBadges';
 
-export default function BookingTable({
-  orders,
-}) {
+export default function BookingTable({ orders }) {
   return (
-    <div className="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>Booking ID</th>
-            <th>Guest</th>
-            <th>Room</th>
-            <th>Check-in</th>
-            <th>Check-out</th>
-            <th>Nights</th>
-            <th>Amount</th>
-            <th>Payment</th>
-            <th>Status</th>
-            <th>Source</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
+    <div className="rounded-md border bg-white">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Booking ID</TableHead>
+            <TableHead>Guest</TableHead>
+            <TableHead>Room</TableHead>
+            <TableHead>Check-in</TableHead>
+            <TableHead>Check-out</TableHead>
+            <TableHead>Nights</TableHead>
+            <TableHead>Amount</TableHead>
+            <TableHead>Payment</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead>Source</TableHead>
+            <TableHead className="text-right">Actions</TableHead>
+          </TableRow>
+        </TableHeader>
 
-        <tbody>
+        <TableBody>
           {orders.map((o) => (
-            <tr key={o.id}>
-              <td
+            <TableRow key={o.id}>
+              {/* 1. Booking ID dengan styling tetap aman */}
+              <TableCell
                 style={{
                   fontFamily: 'monospace',
                   fontSize: '12px',
@@ -37,115 +56,74 @@ export default function BookingTable({
                 }}
               >
                 {o.id}
-              </td>
+              </TableCell>
 
-              <td>
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '9px',
-                  }}
-                >
-                  <div
-                    className="avatar-placeholder"
-                    style={{
-                      background: o.color,
-                      width: '32px',
-                      height: '32px',
-                      fontSize: '11px',
-                    }}
-                  >
-                    {o.initials}
-                  </div>
-
-                  <span
-                    style={{
-                      fontWeight: 600,
-                      fontSize: '13px',
-                    }}
-                  >
+              {/* 2. Menggunakan Shadcn Avatar untuk Guest */}
+              <TableCell>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
+                  <Avatar className="h-8 w-8 text-[11px]" style={{ backgroundColor: o.color }}>
+                    <AvatarFallback className="text-white bg-opacity-20 font-medium">
+                      {o.initials}
+                    </AvatarFallback>
+                  </Avatar>
+                  <span style={{ fontWeight: 600, fontSize: '13px' }}>
                     {o.guestName}
                   </span>
                 </div>
-              </td>
+              </TableCell>
 
-              <td>
-                <div
-                  style={{
-                    fontWeight: 600,
-                    fontSize: '13px',
-                  }}
-                >
-                  {o.room}
-                </div>
+              {/* 3. Detail Kamar */}
+              <TableCell>
+                <div style={{ fontWeight: 600, fontSize: '13px' }}>{o.room}</div>
+                <div style={{ fontSize: '11px', color: '#9ca3af' }}>{o.roomType}</div>
+              </TableCell>
 
-                <div
-                  style={{
-                    fontSize: '11px',
-                    color: '#9ca3af',
-                  }}
-                >
-                  {o.roomType}
-                </div>
-              </td>
-
-              <td>{o.checkIn}</td>
-              <td>{o.checkOut}</td>
-              <td>{o.nights}</td>
-
-              <td>
+              <TableCell>{o.checkIn}</TableCell>
+              <TableCell>{o.checkOut}</TableCell>
+              <TableCell>{o.nights}</TableCell>
+              
+              <TableCell>
                 ${o.amount.toLocaleString()}
-              </td>
+              </TableCell>
 
-              <td>
-                <span
-                  className={`badge ${
-                    paymentCfg[o.paymentStatus]?.cls
-                  }`}
-                >
-                  {
-                    paymentCfg[o.paymentStatus]
-                      ?.label
-                  }
+              {/* Badges bawaan lo dibiarkan aman karena menggunakan class CSS manual */}
+              <TableCell>
+                <span className={`badge ${paymentCfg[o.paymentStatus]?.cls}`}>
+                  {paymentCfg[o.paymentStatus]?.label}
                 </span>
-              </td>
+              </TableCell>
 
-              <td>
-                <span
-                  className={`badge ${
-                    bookingCfg[o.bookingStatus]?.cls
-                  }`}
-                >
-                  {
-                    bookingCfg[o.bookingStatus]
-                      ?.label
-                  }
+              <TableCell>
+                <span className={`badge ${bookingCfg[o.bookingStatus]?.cls}`}>
+                  {bookingCfg[o.bookingStatus]?.label}
                 </span>
-              </td>
+              </TableCell>
 
-              <td>{o.source}</td>
+              <TableCell>{o.source}</TableCell>
 
-              <td>
-                <div
-                  style={{
-                    display: 'flex',
-                    gap: '6px',
-                  }}
-                >
-                  <button className="btn btn-secondary btn-sm">
-                    View
-                  </button>
-
-                  <button className="btn btn-danger btn-sm">
-                    Delete
-                  </button>
-                </div>
-              </td>
-            </tr>
+              {/* 4. Mengganti Buttons dengan DropdownMenu (Action Menu) */}
+              <TableCell className="text-right">
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="p-2 hover:bg-slate-100 rounded-md transition inline-flex items-center justify-center">
+                    <MoreHorizontal className="h-4 w-4" />
+                    <span className="sr-only">Open menu</span>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem className="cursor-pointer">
+                      View details
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="text-red-600 focus:text-red-600 cursor-pointer">
+                      Delete booking
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </div>
   );
 }
