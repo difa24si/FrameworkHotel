@@ -4,7 +4,7 @@ import AuthLayout from '../../layouts/AuthLayout';
 
 export default function Login() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ email: '', password: '', remember: false });
+  const [form, setForm] = useState({ email: 'dipa24si@mahasiswa.pcr.ac.id', password: '123', remember: false });
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e) => {

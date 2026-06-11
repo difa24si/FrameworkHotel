@@ -2,9 +2,11 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import './index.css';
 import './App.css';
-import Loading from './components/Loading';
-import NotFound from './components/NotFound';
-const MainLayouts = lazy(() => import('./layouts/MainLayouts'));
+import Loading from './components/common/Loading';
+import NotFound from './components/common/NotFound';
+import PageHeader from './components/common/PageHeader';
+
+const MainLayout = lazy(() => import('./layouts/MainLayout'));
 
 // Auth Pages
 const Login = lazy(() => import('./pages/auth/Login'));
@@ -32,46 +34,46 @@ export default function App() {
 
           {/* Main App */}
           <Route path="/" element={
-            <MainLayouts>
+            <MainLayout>
               <Dashboard />
-            </MainLayouts>
+            </MainLayout>
           } />
           <Route path="/guests" element={
-            <MainLayouts>
+            <MainLayout>
               <Guests />
-            </MainLayouts>
+            </MainLayout>
           } />
           <Route path="/bookings" element={
-            <MainLayouts>
+            <MainLayout>
               <Bookings />
-            </MainLayouts>
+            </MainLayout>
           } />
           <Route path="/services" element={
-            <MainLayouts>
+            <MainLayout>
               <Services />
-            </MainLayouts>
+            </MainLayout>
           } />
           <Route path="/room-details" element={
-            <MainLayouts>
+            <MainLayout>
               <RoomDetails />
-            </MainLayouts>
+            </MainLayout>
           } />
           <Route path="/reports" element={
-            <MainLayouts>
+            <MainLayout>
               <Reports />
-            </MainLayouts>
+            </MainLayout>
           } />
           <Route path="/settings" element={
-            <MainLayouts>
+            <MainLayout>
               <Settings />
-            </MainLayouts>
+            </MainLayout>
           } />
 
           {/* Catch-all */}
           <Route path="*" element={
-            <MainLayouts>
+            <MainLayout>
               <NotFound />
-            </MainLayouts>
+            </MainLayout>
           } />
         </Routes>
       </Suspense>

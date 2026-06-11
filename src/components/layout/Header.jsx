@@ -67,7 +67,7 @@ export default function Header() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
           <div className="header-avatar">A</div>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{ fontSize: '13px', fontWeight: 600, color: '#111827', lineHeight: 1.3 }}>Admin Manager</span>
+            <span style={{ fontSize: '13px', fontWeight: 600, color: '#111827', lineHeight: 1.3 }}>Difa Mardiani</span>
             <span style={{ fontSize: '11px', color: '#6b7280' }}>Super Admin</span>
           </div>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2">
