@@ -4,6 +4,7 @@ import './index.css';
 import './App.css';
 import Loading from './components/common/Loading';
 import NotFound from './components/common/NotFound';
+import Members from './pages/Members';
 import PageHeader from './components/common/PageHeader';
 
 const MainLayout = lazy(() => import('./layouts/MainLayout'));
@@ -28,9 +29,9 @@ export default function App() {
       <Suspense fallback={<Loading />}>
         <Routes>
           {/* Auth */}
-          <Route path="/login"    element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/forgot"   element={<Forgot />} />
+          <Route path="/forgot" element={<Forgot />} />
 
           {/* Main App */}
           <Route path="/" element={
@@ -58,6 +59,10 @@ export default function App() {
               <RoomDetails />
             </MainLayout>
           } />
+          <Route
+            path="/members"
+            element={<Members />}
+          />
           <Route path="/reports" element={
             <MainLayout>
               <Reports />
