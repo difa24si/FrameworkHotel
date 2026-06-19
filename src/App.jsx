@@ -26,7 +26,7 @@ const Settings = lazy(() => import('./pages/Settings'));
 
 // Member Portal
 const MemberDashboard = lazy(() =>
-  import('./pages/member/MemberDashboard')
+  import('./pages/Member/MemberDashboard')
 );
 
 export default function App() {
