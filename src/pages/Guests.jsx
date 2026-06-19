@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { customers } from '../data/customers';
+import { customers } from '../components/data/customers';
 
 import PageHeader from '../components/common/PageHeader';
 

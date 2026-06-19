@@ -1,4 +1,4 @@
-import { recentActivity } from '../../data/dashboard';
+import { recentActivity } from '../data/dashboard';
 
 export default function RecentActivity({
   checkedIn,

@@ -1,4 +1,4 @@
-import { kpiData } from '../../data/dashboard';
+import { kpiData } from '../data/dashboard';
 
 export default function KpiCards() {
   return (

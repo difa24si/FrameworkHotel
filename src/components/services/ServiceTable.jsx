@@ -1,6 +1,6 @@
 import StarRating from './StarRating';
 import { serviceIcons } from './ServiceIcons';
-import { categoryColors } from '../../data/services';
+import { categoryColors } from '../data/services';
 
 export default function ServiceTable({ services }) {
   return (

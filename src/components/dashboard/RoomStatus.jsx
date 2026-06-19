@@ -1,4 +1,4 @@
-import { roomStatusData } from '../../data/dashboard';
+import { roomStatusData } from '../data/dashboard';
 
 export default function RoomStatus() {
   return (

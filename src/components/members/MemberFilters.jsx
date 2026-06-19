@@ -8,48 +8,62 @@ export default function MemberFilters({
     <div
       className="card"
       style={{
-        padding: '14px 20px',
+        padding: '16px',
         marginBottom: '20px',
         display: 'flex',
         gap: '12px',
-        alignItems: 'center',
       }}
     >
-      <div
-        className="search-bar"
-        style={{ flex: 1 }}
-      >
-        <input
-          type="text"
-          placeholder="Search member..."
-          value={search}
-          onChange={(e) =>
-            setSearch(e.target.value)
-          }
-        />
-      </div>
+      <input
+        type="text"
+        placeholder="Search by name, email, member ID..."
+        value={search}
+        onChange={(e) =>
+          setSearch(e.target.value)
+        }
+        style={{
+          flex: 1,
+          padding: '10px 14px',
+          border: '1px solid #e5e7eb',
+          borderRadius: '8px',
+        }}
+      />
 
-      {[
-        'all',
-        'Bronze',
-        'Silver',
-        'Gold',
-        'Platinum',
-      ].map((f) => (
-        <button
-          key={f}
-          onClick={() =>
-            setFilter(f)
-          }
-          className={`btn btn-sm ${
-            filter === f
-              ? 'btn-primary'
-              : 'btn-secondary'
-          }`}
-        >
-          {f}
-        </button>
-      ))}
+      <select
+        value={filter}
+        onChange={(e) =>
+          setFilter(e.target.value)
+        }
+        style={{
+          padding: '10px 14px',
+          border: '1px solid #e5e7eb',
+          borderRadius: '8px',
+        }}
+      >
+        <option value="all">
+          All Levels
+        </option>
+
+        <option value="Bronze">
+          Bronze
+        </option>
+
+        <option value="Silver">
+          Silver
+        </option>
+
+        <option value="Gold">
+          Gold
+        </option>
+
+        <option value="Platinum">
+          Platinum
+        </option>
+      </select>
+
+      <button className="btn btn-primary">
+        Export
+      </button>
     </div>
   );
 }

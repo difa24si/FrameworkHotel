@@ -7,7 +7,7 @@ import ServiceFilter from '../components/services/ServiceFilter';
 import ServiceGrid from '../components/services/ServiceGrid';
 import ServiceTable from '../components/services/ServiceTable';
 
-import { services } from '../data/services';
+import { services } from '../components/data/services';
 
 export default function Services() {
   const [view, setView] =

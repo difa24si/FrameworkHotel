@@ -7,7 +7,7 @@ import FloorOverview from '../components/rooms/FloorOverview';
 import {
   roomTypes,
   floorData,
-} from '../data/rooms';
+} from '../components/data/rooms';
 
 export default function RoomDetails() {
   const totalRooms = roomTypes.reduce(

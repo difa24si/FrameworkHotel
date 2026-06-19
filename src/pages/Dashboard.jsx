@@ -1,5 +1,5 @@
-import { orders, revenueByMonth } from '../data/orders';
-import { customers } from '../data/customers';
+import { orders, revenueByMonth } from '../components/data/orders';
+import { customers } from '../components/data/customers';
 
 import PageHeader from '../components/common/PageHeader';
 

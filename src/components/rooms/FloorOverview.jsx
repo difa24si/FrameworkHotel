@@ -1,7 +1,7 @@
 import {
   roomTypes,
   floorData,
-} from "../../data/rooms";
+} from "../data/rooms";
 
 export default function FloorOverview({
   floorData,

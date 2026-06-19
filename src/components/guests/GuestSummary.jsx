@@ -1,4 +1,4 @@
-import { customers } from '../../data/customers';
+import { customers } from '../data/customers';
 
 export default function GuestSummary() {
     const summary = [

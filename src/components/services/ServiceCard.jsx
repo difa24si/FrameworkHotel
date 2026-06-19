@@ -1,5 +1,5 @@
 import StarRating from './StarRating';
-import { categoryColors } from '../../data/services';
+import { categoryColors } from '../data/services';
 import { serviceIcons } from './ServiceIcons';
 
 export default function ServiceCard({ service }) {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { orders } from '../data/orders';
+import { orders } from '../components/data/orders';
 
 import PageHeader from '../components/common/PageHeader';
 
