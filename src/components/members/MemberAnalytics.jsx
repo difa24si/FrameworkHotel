@@ -1,138 +1,108 @@
 export default function MemberAnalytics({ members }) {
-  const topMember = [...members].sort(
-    (a, b) => b.totalSpent - a.totalSpent
-  )[0];
-
-  const bronze = members.filter(
-    (m) => m.level === 'Bronze'
+  const admins = members.filter(
+    (m) => m.role === "admin"
   ).length;
 
-  const silver = members.filter(
-    (m) => m.level === 'Silver'
+  const managers = members.filter(
+    (m) => m.role === "manager"
   ).length;
 
-  const gold = members.filter(
-    (m) => m.level === 'Gold'
+  const receptionists = members.filter(
+    (m) => m.role === "receptionist"
   ).length;
 
-  const platinum = members.filter(
-    (m) => m.level === 'Platinum'
+  const housekeepings = members.filter(
+    (m) => m.role === "housekeeping"
   ).length;
+
+ const latestUser =
+  members.length > 0
+    ? members[members.length - 1]
+    : null;
 
   return (
     <div
       style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr 1fr',
-        gap: '20px',
-        marginBottom: '20px',
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr 1fr",
+        gap: "20px",
+        marginBottom: "20px",
       }}
     >
-      {/* Top Member */}
-      <div className="card" style={{ padding: '20px' }}>
-        <h3 style={{ marginBottom: '15px' }}>
-          🏆 Top Member
+      {/* Latest User */}
+      <div className="card" style={{ padding: "20px" }}>
+        <h3 style={{ marginBottom: "15px" }}>
+          👤 Latest User
         </h3>
 
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px',
-          }}
-        >
-          <div
-            className="avatar-placeholder"
-            style={{
-              background: topMember.color,
-              width: '50px',
-              height: '50px',
-            }}
-          >
-            {topMember.initials}
-          </div>
-
-          <div>
+        {latestUser ? (
+          <>
             <div
               style={{
                 fontWeight: 700,
+                marginBottom: "8px",
               }}
             >
-              {topMember.name}
+              {latestUser.name}
             </div>
 
             <div
               style={{
-                color: '#9ca3af',
-                fontSize: '12px',
+                color: "#6b7280",
               }}
             >
-              {topMember.level} Member
+              {latestUser.email}
             </div>
-          </div>
-        </div>
 
-        <div
-          style={{
-            marginTop: '15px',
-            fontSize: '14px',
-          }}
-        >
-          Total Spend:
-          <strong>
-            {' '}
-            $
-            {topMember.totalSpent.toLocaleString()}
-          </strong>
-        </div>
-
-        <div
-          style={{
-            fontSize: '14px',
-          }}
-        >
-          Bookings:
-          <strong>
-            {' '}
-            {topMember.totalBookings}
-          </strong>
-        </div>
+            <div
+              style={{
+                marginTop: "10px",
+              }}
+            >
+              Role: <strong>{latestUser.role}</strong>
+            </div>
+          </>
+        ) : (
+          <p>No users found</p>
+        )}
       </div>
 
-      {/* Membership Distribution */}
-      <div className="card" style={{ padding: '20px' }}>
-        <h3 style={{ marginBottom: '15px' }}>
-          Membership Levels
+      {/* Role Distribution */}
+      <div className="card" style={{ padding: "20px" }}>
+        <h3 style={{ marginBottom: "15px" }}>
+          User Roles
         </h3>
 
-        <div>🥉 Bronze : {bronze}</div>
-        <div>🥈 Silver : {silver}</div>
-        <div>🥇 Gold : {gold}</div>
-        <div>💎 Platinum : {platinum}</div>
+        <div>👑 Admin : {admins}</div>
+        <div>📋 Manager : {managers}</div>
+        <div>🛎 Receptionist : {receptionists}</div>
+        <div>🧹 Housekeeping : {housekeepings}</div>
       </div>
 
-      {/* Marketing */}
-      <div className="card" style={{ padding: '20px' }}>
-        <h3 style={{ marginBottom: '15px' }}>
-          User Sources
+      {/* Statistics */}
+      <div className="card" style={{ padding: "20px" }}>
+        <h3 style={{ marginBottom: "15px" }}>
+          Statistics
         </h3>
 
-        {[
-          ...new Set(
-            members.map((m) => m.source)
-          ),
-        ].map((source) => (
-          <div key={source}>
-            {source} :
-            {' '}
-            {
-              members.filter(
-                (m) =>
-                  m.source === source
-              ).length
-            }
-          </div>
-        ))}
+        <div>Total Users : {members.length}</div>
+
+        <div>
+          Registered Accounts : {members.length}
+        </div>
+
+        <div>
+          Active Roles :
+          {" "}
+          {
+            [
+              admins,
+              managers,
+              receptionists,
+              housekeepings,
+            ].filter((x) => x > 0).length
+          }
+        </div>
       </div>
     </div>
   );
