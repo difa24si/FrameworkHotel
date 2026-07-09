@@ -1,20 +1,8 @@
-import { Outlet, Navigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Sidebar from "../components/layout/Sidebar";
 import Header from "../components/layout/Header";
 
 export default function MainLayout() {
-
-  const user = localStorage.getItem("user");
-
-  console.log("USER DI LOCAL STORAGE :", user);
-
-  if (!user) {
-    console.log("BELUM LOGIN");
-    return <Navigate to="/login" replace />;
-  }
-
-  console.log("SUDAH LOGIN");
-
   return (
     <div
       className="app-container"

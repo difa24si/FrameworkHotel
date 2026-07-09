@@ -5,7 +5,7 @@ const navItems = [
     section: 'Main',
     items: [
       {
-        to: '/',
+        to: '/dashboard',
         label: 'Dashboard',
         icon: (
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -15,7 +15,7 @@ const navItems = [
         ),
       },
       {
-        to: '/guests',
+        to: '/dashboard/guests',
         label: 'Guests',
         badge: '8',
         icon: (
@@ -28,7 +28,7 @@ const navItems = [
         ),
       },
       {
-        to: '/bookings',
+        to: '/dashboard/bookings',
         label: 'Bookings',
         badge: '3',
         icon: (
@@ -42,7 +42,7 @@ const navItems = [
         ),
       },
       {
-        to: '/services',
+        to: '/dashboard/services',
         label: 'Services',
         icon: (
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -53,7 +53,7 @@ const navItems = [
         ),
       },
       {
-        to: '/room-details',
+        to: '/dashboard/room-details',
         label: 'Room Details',
         icon: (
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -68,7 +68,19 @@ const navItems = [
     section: 'Management',
     items: [
       {
-        to: '/reports',
+        to: "/dashboard/members",
+        label: "Members",
+        icon: (
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        ),
+      },
+      {
+        to: '/dashboard/reports',
         label: 'Reports',
         icon: (
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -78,7 +90,7 @@ const navItems = [
         ),
       },
       {
-        to: '/settings',
+        to: '/dashboard/settings',
         label: 'Settings',
         icon: (
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -95,14 +107,21 @@ const navItems = [
 export default function Sidebar() {
   const location = useLocation();
   const navigate = useNavigate();
+  
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userName = user?.name || "Admin Manager";
+  const userEmail = user?.email || "admin@grandluxe.com";
 
   const handleLogout = () => {
-    navigate('/login');
+    localStorage.removeItem("user");
+    navigate("/login", { replace: true });
   };
 
   const isActive = (to) => {
-    if (to === '/') return location.pathname === '/';
-    return location.pathname.startsWith(to);
+    return (
+      location.pathname === to ||
+      location.pathname.startsWith(to + "/")
+    );
   };
 
   return (
@@ -147,10 +166,12 @@ export default function Sidebar() {
       {/* User */}
       <div className="sidebar-footer">
         <div className="sidebar-user" onClick={handleLogout} title="Click to Logout" style={{ cursor: 'pointer' }}>
-          <div className="sidebar-user-avatar">A</div>
+          <div className="sidebar-user-avatar">
+            {userName.charAt(0).toUpperCase()}
+          </div>
           <div className="sidebar-user-info">
-            <h4>Admin Manager</h4>
-            <span>admin@grandluxe.com</span>
+            <h4>{userName}</h4>
+            <span>{userEmail}</span>
           </div>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" style={{ marginLeft: 'auto', flexShrink: 0 }}>
             <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />

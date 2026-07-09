@@ -7,6 +7,10 @@ import "./App.css";
 import Loading from "./components/common/Loading";
 import TestSupabase from "./pages/TestSupabase";
 
+import AdminRoute from "./components/AdminRoute";
+import MemberRoute from "./components/MemberRoute";
+import GuestRoute from "./components/GuestRoute";
+
 // Landing
 const Landing = lazy(() => import("./pages/Landing"));
 
@@ -37,19 +41,56 @@ export default function App() {
       <Suspense fallback={<Loading />}>
         <Routes>
 
-          {/* Landing Page */}
+          {/* Landing */}
           <Route path="/" element={<Landing />} />
 
-          {/* Auth */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/forgot" element={<Forgot />} />
+          {/* Guest */}
+          <Route
+            path="/login"
+            element={
+              <GuestRoute>
+                <Login />
+              </GuestRoute>
+            }
+          />
+
+          <Route
+            path="/register"
+            element={
+              <GuestRoute>
+                <Register />
+              </GuestRoute>
+            }
+          />
+
+          <Route
+            path="/forgot"
+            element={
+              <GuestRoute>
+                <Forgot />
+              </GuestRoute>
+            }
+          />
 
           {/* Member */}
-          <Route path="/member" element={<MemberDashboard />} />
+          <Route
+  path="/member"
+  element={
+    <MemberRoute>
+      <MemberDashboard />
+    </MemberRoute>
+  }
+/>
 
-          {/* Admin */}
-          <Route path="/dashboard" element={<MainLayout />}>
+          {/* Dashboard Admin */}
+    <Route
+  path="/dashboard"
+  element={
+    <AdminRoute>
+      <MainLayout />
+    </AdminRoute>
+  }
+>
             <Route index element={<Dashboard />} />
             <Route path="guests" element={<Guests />} />
             <Route path="bookings" element={<Bookings />} />
@@ -63,7 +104,7 @@ export default function App() {
           {/* Test */}
           <Route path="/test" element={<TestSupabase />} />
 
-          {/* Not Found */}
+          {/* 404 */}
           <Route path="*" element={<Navigate to="/" replace />} />
 
         </Routes>

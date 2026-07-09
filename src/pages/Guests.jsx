@@ -4,14 +4,12 @@ import { supabase } from "../lib/supabase";
 export default function Guests() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [search, setSearch] = useState("");
 
   const [editingId, setEditingId] = useState(null);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [phone, setPhone] = useState("");
   const [gender, setGender] = useState("");
   const [city, setCity] = useState("");
@@ -27,41 +25,28 @@ export default function Guests() {
     const { data, error } = await supabase
       .from("users")
       .select("*")
+      .eq("role", "member")
       .order("created_at", { ascending: false });
 
-    if (!error) {
-      setUsers(data);
-    } else {
+    if (error) {
       alert(error.message);
+    } else {
+      setUsers(data);
     }
 
     setLoading(false);
   }
 
   function resetForm() {
+    setEditingId(null);
+
     setName("");
     setEmail("");
     setPassword("");
-
     setPhone("");
     setGender("");
     setCity("");
-
     setStatus("Active");
-
-    setEditingId(null);
-  }
-
-  function generateUUID() {
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
-      /[xy]/g,
-      function (c) {
-        const r = (Math.random() * 16) | 0;
-        const v = c === "x" ? r : (r & 0x3) | 0x8;
-
-        return v.toString(16);
-      }
-    );
   }
 
   async function handleSaveCustomer() {
@@ -79,28 +64,10 @@ export default function Guests() {
 
     setLoading(true);
 
-    // Cek email sudah ada atau belum
-    if (!editingId) {
-      const { data: checkEmail } = await supabase
+    if (editingId) {
+      const { error } = await supabase
         .from("users")
-        .select("id")
-        .eq("email", email)
-        .neq("id", editingId)
-        .maybeSingle();
-
-      if (checkEmail) {
-        alert("Email sudah digunakan");
-        setLoading(false);
-        return;
-      }
-    }
-    const uuidBaru = generateUUID();
-
-    const { error } = await supabase
-      .from("users")
-      .insert([
-        {
-          id: uuidBaru,
+        .update({
           name,
           email,
           password,
@@ -108,25 +75,46 @@ export default function Guests() {
           gender,
           city,
           status,
-          role: "member",
-        },
-      ]);
+        })
+        .eq("id", editingId);
 
-    if (error) {
-      alert(error.message);
+      if (error) {
+        alert(error.message);
+      } else {
+        alert("Customer berhasil diupdate");
+        resetForm();
+        fetchUsers();
+      }
     } else {
-      alert("Customer berhasil ditambahkan");
+      const { error } = await supabase
+        .from("users")
+        .insert([
+          {
+            name,
+            email,
+            password,
+            phone,
+            gender,
+            city,
+            status,
+            role: "member",
+          },
+        ]);
 
-      resetForm();
-
-      fetchUsers();
+      if (error) {
+        alert(error.message);
+      } else {
+        alert("Customer berhasil ditambahkan");
+        resetForm();
+        fetchUsers();
+      }
     }
 
     setLoading(false);
   }
 
   async function deleteCustomer(id) {
-    if (!window.confirm("Yakin hapus customer ini?")) return;
+    if (!window.confirm("Yakin ingin menghapus customer?")) return;
 
     const { error } = await supabase
       .from("users")
@@ -136,7 +124,6 @@ export default function Guests() {
     if (error) {
       alert(error.message);
     } else {
-      alert("Customer berhasil dihapus");
       fetchUsers();
     }
   }
@@ -147,11 +134,9 @@ export default function Guests() {
     setName(user.name);
     setEmail(user.email);
     setPassword(user.password);
-
     setPhone(user.phone || "");
     setGender(user.gender || "");
     setCity(user.city || "");
-
     setStatus(user.status || "Active");
 
     window.scrollTo({
@@ -163,140 +148,114 @@ export default function Guests() {
   return (
     <div
       style={{
-        padding: "20px",
+        padding: "30px",
         background: "#f8fafc",
         minHeight: "100vh",
       }}
     >
-      <h1>Guest Management</h1>
+      {/* HEADER PAGE */}
+      <div className="page-header">
+        <div>
+          <h1 className="page-title">
+            👥 Guest Management
+          </h1>
+          <p className="page-subtitle">
+            Kelola seluruh data customer Grand Luxe Hotel
+          </p>
+        </div>
+      </div>
 
-      <div
-        style={{
-          background: "white",
-          padding: 25,
-          borderRadius: 12,
-          marginBottom: 25,
-        }}
-      >
-        <h2>
-          {editingId ? "Edit Customer" : "Tambah Customer"}
+      {/* FORM */}
+      <div className="card">
+        <h2 className="card-title">
+          {editingId ? "✏ Edit Customer" : "➕ Tambah Customer"}
         </h2>
 
-        <div
-          style={{
-            display: "grid",
-            gap: 12,
-          }}
-        >
+        <div className="form-grid">
           <input
-            placeholder="Nama"
+            className="form-control"
+            placeholder="Nama Lengkap"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
 
           <input
+            className="form-control"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
 
           <input
+            className="form-control"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
 
           <input
+            className="form-control"
             placeholder="Nomor HP"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
 
           <select
+            className="form-control"
             value={gender}
             onChange={(e) => setGender(e.target.value)}
           >
-            <option value="">Pilih Jenis Kelamin</option>
-            <option value="Laki-laki">Laki-laki</option>
-            <option value="Perempuan">Perempuan</option>
+            <option value="">Jenis Kelamin</option>
+            <option>Laki-laki</option>
+            <option>Perempuan</option>
           </select>
 
           <input
+            className="form-control"
             placeholder="Kota"
             value={city}
             onChange={(e) => setCity(e.target.value)}
           />
 
           <select
+            className="form-control"
             value={status}
             onChange={(e) => setStatus(e.target.value)}
           >
             <option>Active</option>
             <option>Inactive</option>
           </select>
+        </div>
 
-          <div
-            style={{
-              display: "flex",
-              gap: "10px",
-            }}
+        <div
+          style={{
+            display: "flex",
+            gap: "12px",
+            marginTop: "25px",
+          }}
+        >
+          <button
+            className="btn-save"
+            onClick={handleSaveCustomer}
+            disabled={loading}
           >
-            <button
-              type="button"
-              onClick={handleSaveCustomer}
-              disabled={loading}
-              style={{
-                flex: 1,
-                background: "#2563eb",
-                color: "white",
-                border: "none",
-                padding: "12px",
-                borderRadius: "8px",
-                cursor: "pointer",
-              }}
-            >
-              {editingId ? "Update Customer" : "Save Customer"}
-            </button>
+            {editingId ? "💾 Update Customer" : "➕ Save Customer"}
+          </button>
 
-            {editingId && (
-              <button
-                type="button"
-                onClick={resetForm}
-                style={{
-                  flex: 1,
-                  background: "#6b7280",
-                  color: "white",
-                  border: "none",
-                  padding: "12px",
-                  borderRadius: "8px",
-                  cursor: "pointer",
-                }}
-              >
-                Batal
-              </button>
-            )}
-          </div>
+          {editingId && (
+            <button className="btn-cancel" onClick={resetForm}>
+              Batal
+            </button>
+          )}
         </div>
       </div>
 
-      <div
-        style={{
-          background: "white",
-          borderRadius: "12px",
-          overflow: "hidden",
-        }}
-      >
-        <table
-          style={{
-            width: "100%",
-            borderCollapse: "collapse",
-          }}
-        >
-          <thead
-            style={{
-              background: "#f1f5f9",
-            }}
-          >
+      {/* TABLE */}
+      <div className="table-card" style={{ marginTop: "30px" }}>
+        <h2 className="card-title">📋 Daftar Customer</h2>
+
+        <table className="member-table">
+          <thead>
             <tr>
               <th>No</th>
               <th>Nama</th>
@@ -316,10 +275,10 @@ export default function Guests() {
                   colSpan="8"
                   style={{
                     textAlign: "center",
-                    padding: "20px",
+                    padding: "30px",
                   }}
                 >
-                  Belum ada customer
+                  Belum ada customer.
                 </td>
               </tr>
             ) : (
@@ -333,48 +292,36 @@ export default function Guests() {
                   <td>{user.city}</td>
                   <td>
                     <span
-                      style={{
-                        padding: "4px 10px",
-                        borderRadius: "20px",
-                        color: "#fff",
-                        background:
-                          user.status === "Active"
-                            ? "#22c55e"
-                            : "#ef4444",
-                      }}
+                      className={
+                        user.status === "Active"
+                          ? "badge-active"
+                          : "badge-inactive"
+                      }
                     >
                       {user.status}
                     </span>
                   </td>
                   <td>
-                    <button
-                      onClick={() => editCustomer(user)}
+                    <div
                       style={{
-                        background: "#2563eb",
-                        color: "white",
-                        border: "none",
-                        padding: "6px 12px",
-                        borderRadius: "5px",
-                        marginRight: "8px",
-                        cursor: "pointer",
+                        display: "flex",
+                        gap: "10px",
                       }}
                     >
-                      Edit
-                    </button>
+                      <button
+                        className="btn-edit"
+                        onClick={() => editCustomer(user)}
+                      >
+                        ✏ Edit
+                      </button>
 
-                    <button
-                      onClick={() => deleteCustomer(user.id)}
-                      style={{
-                        background: "#ef4444",
-                        color: "white",
-                        border: "none",
-                        padding: "6px 12px",
-                        borderRadius: "5px",
-                        cursor: "pointer",
-                      }}
-                    >
-                      Hapus
-                    </button>
+                      <button
+                        className="btn-delete"
+                        onClick={() => deleteCustomer(user.id)}
+                      >
+                        🗑 Hapus
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))

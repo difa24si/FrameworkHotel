@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import MemberForm from "../components/members/MemberForm";
 import MemberTable from "../components/members/MemberTable";
+import "./Members.css";
 
 export default function Members() {
   const [users, setUsers] = useState([]);
@@ -161,8 +162,10 @@ if (editingId) {
 
 
   return (
-  <div style={{ padding: "20px" }}>
-    <h1>Manajemen Data User</h1>
+    <div className="page-container">
+    <h1 className="page-title">
+  👥 Manajemen Data User
+</h1>
 
     <MemberForm
       form={form}

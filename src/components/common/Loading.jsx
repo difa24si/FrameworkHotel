@@ -40,7 +40,7 @@ export default function Loading() {
         <div className="h-full bg-green-500 animate-[loading_2s_ease-in-out_infinite] w-full origin-left"></div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes loading {
           0% { transform: scaleX(0); }
           50% { transform: scaleX(0.5); }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthLayout from "../../layouts/AuthLayout";
 import { supabase } from "../../lib/supabase";
+import "./Register.css";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -155,7 +156,7 @@ export default function Register() {
 
   return (
     <AuthLayout>
-      <div className="auth-form-container">
+      <div className="register-card">
         <h2>Create Account</h2>
         <p>Register as a new hotel staff member</p>
 
@@ -255,9 +256,10 @@ export default function Register() {
           </div>
 
           <button
-            type="submit"
-            disabled={loading}
-          >
+    className="register-btn"
+    type="submit"
+    disabled={loading}
+>
             {loading
               ? "Processing..."
               : "Create Account"}

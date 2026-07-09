@@ -1,42 +1,47 @@
-import { useState } from 'react';
-import { orders } from '../components/data/orders';
+import { useState } from "react";
+import { orders } from "../components/data/orders";
 
-import PageHeader from '../components/common/PageHeader';
-
-import BookingActions from '../components/bookings/BookingActions';
-import BookingSummary from '../components/bookings/BookingSummary';
-import BookingFilters from '../components/bookings/BookingFilters';
-import BookingTable from '../components/bookings/BookingTable';
-import BookingPagination from '../components/bookings/BookingPagination';
+import PageHeader from "../components/common/PageHeader";
+import BookingActions from "../components/bookings/BookingActions";
+import BookingSummary from "../components/bookings/BookingSummary";
+import BookingFilters from "../components/bookings/BookingFilters";
+import BookingTable from "../components/bookings/BookingTable";
+import BookingPagination from "../components/bookings/BookingPagination";
 
 export default function Bookings() {
-  const [search, setSearch] = useState('');
-  const [filter, setFilter] = useState('all');
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState("all");
   const [page, setPage] = useState(1);
 
   const totalRevenue = orders
-    .filter(o => o.paymentStatus === 'paid')
-    .reduce((s, o) => s + o.amount, 0);
-
-  const pending = orders.filter(
-    o => o.bookingStatus === 'pending'
-  ).length;
+    .filter((order) => order.paymentStatus === "paid")
+    .reduce((total, order) => total + order.amount, 0);
 
   const confirmed = orders.filter(
-    o => o.bookingStatus === 'confirmed'
+    (order) => order.bookingStatus === "confirmed"
   ).length;
 
-  const filtered = orders.filter(o => {
-    const matchS =
-      o.guestName.toLowerCase().includes(search.toLowerCase()) ||
-      o.id.toLowerCase().includes(search.toLowerCase()) ||
-      o.room.includes(search);
+  const pending = orders.filter(
+    (order) => order.bookingStatus === "pending"
+  ).length;
 
-    const matchF =
-      filter === 'all' ||
-      o.bookingStatus === filter;
+  const filteredOrders = orders.filter((order) => {
+    const matchSearch =
+      order.guestName
+        .toLowerCase()
+        .includes(search.toLowerCase()) ||
+      order.id
+        .toLowerCase()
+        .includes(search.toLowerCase()) ||
+      order.room
+        .toLowerCase()
+        .includes(search.toLowerCase());
 
-    return matchS && matchF;
+    const matchFilter =
+      filter === "all" ||
+      order.bookingStatus === filter;
+
+    return matchSearch && matchFilter;
   });
 
   return (
@@ -63,12 +68,10 @@ export default function Bookings() {
       />
 
       <div className="card">
-        <BookingTable
-          orders={filtered}
-        />
+        <BookingTable orders={filteredOrders} />
 
         <BookingPagination
-          filtered={filtered.length}
+          filtered={filteredOrders.length}
           total={orders.length}
           page={page}
           setPage={setPage}

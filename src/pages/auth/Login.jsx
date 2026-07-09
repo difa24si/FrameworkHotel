@@ -1,19 +1,26 @@
 import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "../../lib/supabase";
+import "./Login.css";
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
 
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setError("");
+
     if (!form.email || !form.password) {
-      alert("Email dan Password wajib diisi");
+      setError("Email dan Password wajib diisi.");
       return;
     }
 
@@ -22,121 +29,115 @@ export default function Login() {
     try {
       const email = form.email.trim().toLowerCase();
 
-      console.log("Email yang dicari :", email);
-
-      const { data: userFound, error } = await supabase
+      const { data: userFound, error: supabaseError } = await supabase
         .from("users")
         .select("*")
-        .ilike("email", email)
+        .eq("email", email)
         .maybeSingle();
 
-      console.log("DATA USER :", userFound);
-      console.log("ERROR :", error);
+        console.log("Email yang dicari:", email);
+console.log("User ditemukan:", userFound);
+console.log("Error:", supabaseError);
 
-      if (error) {
-        throw error;
-      }
+      if (supabaseError) throw supabaseError;
 
       if (!userFound) {
-        alert("Email tidak ditemukan");
+        setError("Email tidak ditemukan.");
         return;
       }
 
       if (userFound.password !== form.password) {
-        alert("Password salah");
+        setError("Password salah.");
         return;
       }
 
       localStorage.setItem("user", JSON.stringify(userFound));
 
-      alert("Login berhasil!");
-
-      window.location.href = "/dashboard";
+      if (userFound.role === "admin") {
+        navigate("/dashboard");
+      } else {
+        navigate("/member");
+      }
     } catch (err) {
-      console.error(err);
-      alert("Terjadi kesalahan : " + err.message);
+      setError(err.message || "Terjadi kesalahan saat login.");
     } finally {
       setLoading(false);
     }
-  };
+  }; // <--- Menutup fungsi handleSubmit dengan benar
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        background: "#f3f4f6",
-      }}
-    >
-      <div
-        style={{
-          background: "#fff",
-          padding: "40px",
-          width: "400px",
-          borderRadius: "10px",
-        }}
-      >
-        <h2
-          style={{
-            textAlign: "center",
-            marginBottom: "30px",
-          }}
-        >
-          Login
-        </h2>
+    <div className="login-page">
+      <div className="login-left">
+        <div className="logo-box">🏨</div>
 
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={form.email}
-            onChange={(e) =>
-              setForm({
-                ...form,
-                email: e.target.value,
-              })
-            }
-            style={{
-              width: "100%",
-              padding: "12px",
-              marginBottom: "15px",
-            }}
-          />
+        <h1>Grand Luxe Hotel</h1>
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={form.password}
-            onChange={(e) =>
-              setForm({
-                ...form,
-                password: e.target.value,
-              })
-            }
-            style={{
-              width: "100%",
-              padding: "12px",
-              marginBottom: "20px",
-            }}
-          />
+        <p>
+          Premium Hotel Management System yang membantu pengelolaan reservasi,
+          tamu, dan operasional hotel menjadi lebih mudah.
+        </p>
 
-          <button
-            type="submit"
-            disabled={loading}
-            style={{
-              width: "100%",
-              padding: "12px",
-              background: "#00C853",
-              color: "#fff",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            {loading ? "Loading..." : "Login"}
-          </button>
-        </form>
+        <div className="feature-card">
+          <h3>Dashboard</h3>
+          <span>Monitoring hotel secara realtime.</span>
+        </div>
+
+        <div className="feature-card">
+          <h3>Guest Management</h3>
+          <span>Kelola seluruh data tamu hotel.</span>
+        </div>
+
+        <div className="feature-card">
+          <h3>Booking System</h3>
+          <span>Reservasi kamar lebih cepat.</span>
+        </div>
+      </div>
+
+      <div className="login-right">
+        <div className="login-card">
+          <h2>Welcome Back</h2>
+
+          <p className="subtitle">Login ke akun Grand Luxe Hotel</p>
+
+          {error && <div className="error-box">{error}</div>}
+
+          <form onSubmit={handleSubmit}>
+            <input
+              className="login-input"
+              type="email"
+              placeholder="Email"
+              value={form.email}
+              onChange={(e) =>
+                setForm({
+                  ...form,
+                  email: e.target.value,
+                })
+              }
+            />
+
+            <input
+              className="login-input"
+              type="password"
+              placeholder="Password"
+              value={form.password}
+              onChange={(e) =>
+                setForm({
+                  ...form,
+                  password: e.target.value,
+                })
+              }
+            />
+
+            <button className="login-btn" type="submit" disabled={loading}>
+              {loading ? "Loading..." : "Login"}
+            </button>
+          </form>
+
+          <div className="bottom-text">
+            Belum punya akun?
+            <Link to="/register"> Register</Link>
+          </div>
+        </div>
       </div>
     </div>
   );
