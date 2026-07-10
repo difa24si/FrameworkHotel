@@ -71,21 +71,21 @@ export default function MemberForm({
           <div>
             <label>Role</label>
 
-            <select
-              className="form-control"
-              value={form.role}
-              onChange={(e) =>
-                setForm({
-                  ...form,
-                  role: e.target.value,
-                })
-              }
-            >
-              <option value="member">Member</option>
-              <option value="admin">Admin</option>
-              <option value="receptionist">Receptionist</option>
-              <option value="manager">Manager</option>
-            </select>
+           <select
+  value={form.role}
+  onChange={(e) =>
+    setForm({
+      ...form,
+      role: e.target.value,
+    })
+  }
+>
+  <option value="member">Member</option>
+  <option value="receptionist">Receptionist</option>
+  <option value="manager">Manager</option>
+  <option value="housekeeping">Housekeeping</option>
+  <option value="admin">Administrator</option>
+</select>
           </div>
 
         </div>

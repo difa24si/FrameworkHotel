@@ -12,147 +12,147 @@ export default function Register() {
   const [form, setForm] = useState({
     name: "",
     email: "",
-    role: "receptionist",
+    role: "member", // Diubah ke "member" sebagai nilai default awal
     password: "",
     confirm: "",
   });
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  alert("REGISTER DIKLIK");
-  console.log("TOMBOL REGISTER DIKLIK");
+    alert("REGISTER DIKLIK");
+    console.log("TOMBOL REGISTER DIKLIK");
 
-  try {
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    // TEST KONEKSI SUPABASE
-    const { data: testData, error: testError } =
-      await supabase
+      // TEST KONEKSI SUPABASE
+      const { data: testData, error: testError } =
+        await supabase
+          .from("users")
+          .select("*");
+
+      console.log("TEST DATA:");
+      console.log(testData);
+
+      console.log("TEST ERROR:");
+      console.log(testError);
+
+      if (testError) {
+        alert(
+          "Supabase Error: " +
+            testError.message
+        );
+        return;
+      }
+
+      // Validasi kosong
+      if (
+        !form.name.trim() ||
+        !form.email.trim() ||
+        !form.password.trim() ||
+        !form.confirm.trim()
+      ) {
+        alert("Semua field wajib diisi");
+        return;
+      }
+
+      const emailRegex =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailRegex.test(form.email)) {
+        alert("Format email tidak valid");
+        return;
+      }
+
+      if (form.password.length < 6) {
+        alert("Password minimal 6 karakter");
+        return;
+      }
+
+      if (form.password !== form.confirm) {
+        alert(
+          "Password dan Confirm Password tidak sama"
+        );
+        return;
+      }
+
+      const {
+        data: existingUser,
+        error: checkError,
+      } = await supabase
         .from("users")
-        .select("*");
+        .select("*")
+        .eq("email", form.email.trim())
+        .maybeSingle();
 
-    console.log("TEST DATA:");
-    console.log(testData);
-
-    console.log("TEST ERROR:");
-    console.log(testError);
-
-    if (testError) {
-      alert(
-        "Supabase Error: " +
-          testError.message
+      console.log(
+        "HASIL CEK EMAIL:",
+        existingUser
       );
-      return;
-    }
-
-    // Validasi kosong
-    if (
-      !form.name.trim() ||
-      !form.email.trim() ||
-      !form.password.trim() ||
-      !form.confirm.trim()
-    ) {
-      alert("Semua field wajib diisi");
-      return;
-    }
-
-    const emailRegex =
-      /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailRegex.test(form.email)) {
-      alert("Format email tidak valid");
-      return;
-    }
-
-    if (form.password.length < 6) {
-      alert("Password minimal 6 karakter");
-      return;
-    }
-
-    if (form.password !== form.confirm) {
-      alert(
-        "Password dan Confirm Password tidak sama"
+      console.log(
+        "ERROR CEK EMAIL:",
+        checkError
       );
-      return;
-    }
 
-    const {
-      data: existingUser,
-      error: checkError,
-    } = await supabase
-      .from("users")
-      .select("*")
-      .eq("email", form.email.trim())
-      .maybeSingle();
+      if (checkError) {
+        alert(
+          "Error cek email: " +
+            checkError.message
+        );
+        return;
+      }
 
-    console.log(
-      "HASIL CEK EMAIL:",
-      existingUser
-    );
-    console.log(
-      "ERROR CEK EMAIL:",
-      checkError
-    );
+      if (existingUser) {
+        alert("Email sudah terdaftar");
+        return;
+      }
 
-    if (checkError) {
-      alert(
-        "Error cek email: " +
-          checkError.message
+      const userData = {
+        name: form.name.trim(),
+        email: form.email.trim(),
+        password: form.password,
+        role: form.role,
+      };
+
+      console.log(
+        "DATA YANG AKAN DISIMPAN:"
       );
-      return;
-    }
+      console.log(userData);
 
-    if (existingUser) {
-      alert("Email sudah terdaftar");
-      return;
-    }
+      const { data, error } =
+        await supabase
+          .from("users")
+          .insert([userData])
+          .select();
 
-    const userData = {
-      name: form.name.trim(),
-      email: form.email.trim(),
-      password: form.password,
-      role: form.role,
-    };
+      console.log("INSERT DATA:");
+      console.log(data);
 
-    console.log(
-      "DATA YANG AKAN DISIMPAN:"
-    );
-    console.log(userData);
+      console.log("INSERT ERROR:");
+      console.log(error);
 
-    const { data, error } =
-      await supabase
-        .from("users")
-        .insert([userData])
-        .select();
+      if (error) {
+        alert(
+          "Gagal simpan: " +
+            error.message
+        );
+        return;
+      }
 
-    console.log("INSERT DATA:");
-    console.log(data);
+      alert("Pendaftaran berhasil!");
 
-    console.log("INSERT ERROR:");
-    console.log(error);
+      navigate("/login");
+    } catch (err) {
+      console.error(err);
 
-    if (error) {
       alert(
-        "Gagal simpan: " +
-          error.message
+        "CATCH ERROR: " + err.message
       );
-      return;
+    } finally {
+      setLoading(false);
     }
-
-    alert("Pendaftaran berhasil!");
-
-    navigate("/login");
-  } catch (err) {
-    console.error(err);
-
-    alert(
-      "CATCH ERROR: " + err.message
-    );
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   return (
     <AuthLayout>
@@ -181,7 +181,7 @@ export default function Register() {
             <label>Email</label>
 
             <input
-              type="email"
+              type="type"
               value={form.email}
               onChange={(e) =>
                 setForm({
@@ -205,6 +205,10 @@ export default function Register() {
                 })
               }
             >
+              <option value="member">
+                Member
+              </option>
+
               <option value="receptionist">
                 Receptionist
               </option>
@@ -256,10 +260,10 @@ export default function Register() {
           </div>
 
           <button
-    className="register-btn"
-    type="submit"
-    disabled={loading}
->
+            className="register-btn"
+            type="submit"
+            disabled={loading}
+          >
             {loading
               ? "Processing..."
               : "Create Account"}
