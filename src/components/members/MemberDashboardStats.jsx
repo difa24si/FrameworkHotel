@@ -30,7 +30,8 @@ export default function MemberDashboardStats() {
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(4,1fr)",
+        gridTemplateColumns:
+          "repeat(auto-fit, minmax(220px, 1fr))",
         gap: "20px",
         marginBottom: "25px",
       }}
@@ -39,21 +40,47 @@ export default function MemberDashboardStats() {
         <div
           key={card.title}
           style={{
-            background: "#fff",
+            background: "#ffffff",
             borderRadius: "16px",
             padding: "25px",
-            boxShadow: "0 5px 15px rgba(0,0,0,.08)",
+            borderTop: `5px solid ${card.color}`,
+            boxShadow:
+              "0 5px 15px rgba(0, 0, 0, 0.08)",
           }}
         >
-          <div style={{ fontSize: "40px" }}>
+          <div
+            style={{
+              width: "60px",
+              height: "60px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: `${card.color}20`,
+              borderRadius: "14px",
+              fontSize: "35px",
+            }}
+          >
             {card.icon}
           </div>
 
-          <h2 style={{ margin: "10px 0" }}>
+          <h2
+            style={{
+              marginTop: "18px",
+              marginBottom: "5px",
+              color: "#111827",
+              fontSize: "30px",
+            }}
+          >
             {card.value}
           </h2>
 
-          <span style={{ color: "#6b7280" }}>
+          <span
+            style={{
+              color: "#374151",
+              fontSize: "17px",
+              fontWeight: "600",
+            }}
+          >
             {card.title}
           </span>
         </div>

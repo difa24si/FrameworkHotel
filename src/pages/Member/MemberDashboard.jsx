@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import "./MemberDashboardStats.css";
 
 const cards = [
@@ -83,14 +84,45 @@ const benefits = [
 ];
 
 export default function MemberDashboard() {
+  const navigate = useNavigate();
+
+  // Mengambil data pengguna yang sedang login
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  // Mengambil huruf pertama nama untuk avatar
+  const firstLetter = user?.name
+    ? user.name.charAt(0).toUpperCase()
+    : "M";
+
+  // Fungsi logout
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("isLogin");
+
+    navigate("/login", {
+      replace: true,
+    });
+  };
+
   return (
     <div className="member-dashboard">
 
       {/* WELCOME BANNER */}
       <section className="member-welcome">
+
+        {/* TOMBOL LOGOUT */}
+        <button
+          type="button"
+          className="member-logout-button"
+          onClick={handleLogout}
+        >
+          🚪 Logout
+        </button>
+
         <div className="welcome-profile">
+
           <div className="welcome-avatar">
-            L
+            {firstLetter}
           </div>
 
           <div>
@@ -98,15 +130,19 @@ export default function MemberDashboard() {
               Welcome back,
             </p>
 
-            <h1>lala 👋</h1>
+            <h1>
+              {user?.name || "Member"} 👋
+            </h1>
 
             <p className="welcome-email">
-              lala@gmail.com
+              {user?.email || "member@gmail.com"}
             </p>
           </div>
+
         </div>
 
         <div className="membership-info">
+
           <span>MEMBERSHIP</span>
 
           <h2>⭐ Gold Member</h2>
@@ -114,17 +150,24 @@ export default function MemberDashboard() {
           <p>Reward Point</p>
 
           <strong>3,450</strong>
+
         </div>
+
       </section>
+
 
       {/* STATISTIC CARDS */}
       <section className="member-stats-grid">
+
         {cards.map((card) => (
+
           <div
             className={`member-stat-card ${card.className}`}
             key={card.title}
           >
+
             <div className="stat-top">
+
               <div className="stat-icon">
                 {card.icon}
               </div>
@@ -132,6 +175,7 @@ export default function MemberDashboard() {
               <span className="stat-arrow">
                 ↗
               </span>
+
             </div>
 
             <h2>{card.value}</h2>
@@ -139,47 +183,80 @@ export default function MemberDashboard() {
             <h3>{card.title}</h3>
 
             <p>{card.description}</p>
+
           </div>
+
         ))}
+
       </section>
+
 
       {/* UPCOMING BOOKING */}
       <section className="dashboard-section">
+
         <div className="section-heading">
+
           <div>
+
             <span className="section-label">
               NEXT STAY
             </span>
 
-            <h2>🏨 Upcoming Booking</h2>
+            <h2>
+              🏨 Upcoming Booking
+            </h2>
+
           </div>
 
           <button className="view-all-button">
             View All
           </button>
+
         </div>
 
+
         <div className="upcoming-booking">
+
           <div className="booking-date-box">
+
             <strong>25</strong>
+
             <span>JUN</span>
+
           </div>
 
+
           <div className="booking-information">
-            <h3>Deluxe Ocean View Suite</h3>
+
+            <h3>
+              Deluxe Ocean View Suite
+            </h3>
 
             <p>
               📅 25 June 2026 – 28 June 2026
             </p>
 
             <div className="booking-tags">
-              <span>👥 2 Adults</span>
-              <span>🛏 Deluxe Room</span>
-              <span>🌙 3 Nights</span>
+
+              <span>
+                👥 2 Adults
+              </span>
+
+              <span>
+                🛏 Deluxe Room
+              </span>
+
+              <span>
+                🌙 3 Nights
+              </span>
+
             </div>
+
           </div>
 
+
           <div className="booking-action">
+
             <span className="confirmed-badge">
               ● Confirmed
             </span>
@@ -187,84 +264,140 @@ export default function MemberDashboard() {
             <button className="detail-button">
               View Detail →
             </button>
+
           </div>
+
         </div>
+
       </section>
+
 
       {/* HISTORY DAN BENEFITS */}
       <div className="dashboard-bottom-grid">
 
+
         {/* BOOKING HISTORY */}
         <section className="dashboard-section">
+
           <div className="section-heading">
+
             <div>
+
               <span className="section-label">
                 RECENT ACTIVITY
               </span>
 
-              <h2>📖 Booking History</h2>
+              <h2>
+                📖 Booking History
+              </h2>
+
             </div>
+
           </div>
 
+
           <div className="history-list">
+
             {bookingHistory.map(
               (booking, index) => (
+
                 <div
                   className="history-item"
                   key={booking.room}
                 >
+
                   <div className="history-number">
                     {index + 1}
                   </div>
 
-                  <div className="history-detail">
-                    <h3>{booking.room}</h3>
 
-                    <p>📅 {booking.date}</p>
+                  <div className="history-detail">
+
+                    <h3>
+                      {booking.room}
+                    </h3>
+
+                    <p>
+                      📅 {booking.date}
+                    </p>
+
                   </div>
 
+
                   <span className="completed-badge">
+
                     ✓ {booking.status}
+
                   </span>
+
                 </div>
+
               )
             )}
+
           </div>
+
         </section>
+
 
         {/* MEMBERSHIP BENEFITS */}
         <section className="dashboard-section">
+
           <div className="section-heading">
+
             <div>
+
               <span className="section-label">
                 GOLD PRIVILEGES
               </span>
 
-              <h2>🎁 Membership Benefits</h2>
+              <h2>
+                🎁 Membership Benefits
+              </h2>
+
             </div>
+
           </div>
 
+
           <div className="benefit-grid">
+
             {benefits.map((benefit) => (
+
               <div
                 className="benefit-item"
                 key={benefit.title}
               >
+
                 <div className="benefit-icon">
+
                   {benefit.icon}
+
                 </div>
+
 
                 <div>
-                  <h3>{benefit.title}</h3>
 
-                  <p>{benefit.description}</p>
+                  <h3>
+                    {benefit.title}
+                  </h3>
+
+                  <p>
+                    {benefit.description}
+                  </p>
+
                 </div>
+
               </div>
+
             ))}
+
           </div>
+
         </section>
 
       </div>
+
     </div>
   );
 }
